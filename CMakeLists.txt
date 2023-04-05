@@ -188,7 +188,7 @@ add_custom_target(Customize_install
 
 set(CONFIG_PACKAGE_LOCATION "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/cmake")
 
-set(SHARED_LIBRARY_NAMES "v4l2")
+set(SHARED_LIBRARY_NAMES "v4l2;v4lconvert")
 set(STATIC_LIBRARY_NAMES "${SHARED_LIBRARY_NAMES}")
 
 configure_file(cmake/Config.cmake.in "${CMAKE_BINARY_DIR}/${PROJECT_NAME}Config.cmake" @ONLY)
