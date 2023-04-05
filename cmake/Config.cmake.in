@@ -1,0 +1,43 @@
+#* Author: Wady <iswady@163.com>
+#* Date:   Thu Feb 24 12:00:00 2022
+
+if(@ENABLE_SHARED@)
+    set(@PROJECT_NAME_UPPER@_LIBRARY_NAMES "@SHARED_LIBRARY_NAMES@")
+    foreach(LIBNAME ${@PROJECT_NAME_UPPER@_LIBRARY_NAMES})
+        find_library(@PROJECT_NAME_UPPER@_LIBRARY_${LIBNAME}
+            NAMES ${LIBNAME} PATH_SUFFIXES @SHARED_LIBRARY_PATH@
+        )
+
+        if(@PROJECT_NAME_UPPER@_LIBRARY_${LIBNAME})
+            list(APPEND @PROJECT_NAME_UPPER@_LIBRARIES ${@PROJECT_NAME_UPPER@_LIBRARY_${LIBNAME}})
+        else()
+            message(FATAL_ERROR "Missing shared library: ${LIBNAME}")
+        endif()
+    endforeach()
+else()
+    set(@PROJECT_NAME_UPPER@_LIBRARY_NAMES "@STATIC_LIBRARY_NAMES@")
+    foreach(LIBNAME ${@PROJECT_NAME_UPPER@_LIBRARY_NAMES})
+        find_library(@PROJECT_NAME_UPPER@_LIBRARY_${LIBNAME}
+            NAMES ${LIBNAME} PATH_SUFFIXES @STATIC_LIBRARY_PATH@
+        )
+
+        if(@PROJECT_NAME_UPPER@_LIBRARY_${LIBNAME})
+            list(APPEND @PROJECT_NAME_UPPER@_LIBRARIES ${@PROJECT_NAME_UPPER@_LIBRARY_${LIBNAME}})
+        else()
+            message(FATAL_ERROR "Missing static library: ${LIBNAME}")
+        endif()
+    endforeach()
+endif()
+
+find_path(@PROJECT_NAME_UPPER@_INCLUDE_DIR
+    @PROJECT_NAME_LOWER@/libv4l2.h
+)
+
+if(NOT @PROJECT_NAME_UPPER@_INCLUDE_DIR)
+    message(FATAL_ERROR "Missing header files.")
+endif()
+
+set(@PROJECT_NAME_UPPER@_INCLUDE_DIRS "${@PROJECT_NAME_UPPER@_INCLUDE_DIR}")
+list(APPEND @PROJECT_NAME_UPPER@_INCLUDE_DIRS "${@PROJECT_NAME_UPPER@_INCLUDE_DIR}/@PROJECT_NAME_LOWER@")
+
+set(@PROJECT_NAME_UPPER@_FOUND TRUE)
