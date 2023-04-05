@@ -17323,6 +17323,11 @@ uts4*)
   dynamic_linker=no
   ;;
 esac
+
+if test "$shared_extension" = ".so"; then
+    library_names_spec='$libname$release$shared_ext'
+fi
+
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $dynamic_linker" >&5
 printf "%s\n" "$dynamic_linker" >&6; }
 test no = "$dynamic_linker" && can_build_shared=no

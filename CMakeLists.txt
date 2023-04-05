@@ -98,6 +98,8 @@ if(CMAKE_CROSSCOMPILING)
     utils_write_script("export LDFLAGS=" WRITE_ALL)
 endif()
 
+utils_write_script("export shared_extension=\".so\"" WRITE_ALL)
+
 set(MAKE_CLEAN "${CMAKE_MAKE_PROGRAM} -C ${INTERMEDIATE_DIR} distclean")
 set(SKIP_CLEAN "# There is nothing to be cleaned.")
 
