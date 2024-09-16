@@ -2,13 +2,10 @@ SUBDIRS = \
 	libv4l2util \
 	libmedia_dev \
 	ivtv-ctl \
-	ir-ctl \
 	cx18-ctl \
-	keytable \
 	media-ctl \
 	v4l2-ctl \
 	v4l2-dbg \
-	v4l2-sysfs-path \
 	libcecutil \
 	cec-ctl \
 	cec-compliance \
@@ -20,9 +17,18 @@ SUBDIRS += \
 	v4l2-tracer
 endif
 
+if HAVE_ARGP
+SUBDIRS += \
+	ir-ctl \
+	keytable \
+	v4l2-sysfs-path
+endif
+
 if WITH_LIBDVBV5
+if HAVE_ARGP
 SUBDIRS += \
 	dvb
+endif
 endif
 
 if WITH_V4L2_COMPLIANCE

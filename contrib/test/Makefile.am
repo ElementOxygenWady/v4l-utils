@@ -2,9 +2,7 @@ noinst_PROGRAMS = \
 	ioctl-test		\
 	sliced-vbi-test		\
 	sliced-vbi-detect	\
-	v4l2grab		\
 	driver-test		\
-	mc_nextgen_test		\
 	stress-buffer		\
 	capture-example
 
@@ -13,7 +11,17 @@ noinst_PROGRAMS += pixfmt-test
 endif
 
 if HAVE_GLU
+if HAVE_ARGP
 noinst_PROGRAMS += v4l2gl
+endif
+endif
+
+if HAVE_ARGP
+noinst_PROGRAMS += v4l2grab
+endif
+
+if HAVE_ARGP
+noinst_PROGRAMS += mc_nextgen_test
 endif
 
 if HAVE_SDL

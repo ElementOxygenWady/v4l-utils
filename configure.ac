@@ -344,14 +344,22 @@ dl_saved_libs=$LIBS
   AC_SUBST([DLOPEN_LIBS])
 LIBS=$dl_saved_libs
 
-AC_CHECK_HEADER([argp.h],,AC_MSG_ERROR(Cannot continue: argp.h not found))
+AC_ARG_WITH([argp],
+            AS_HELP_STRING([--without-argp], [Do not use argp.h]),
+            [],
+            [with_argp=yes])
 argp_saved_libs=$LIBS
-  AC_SEARCH_LIBS([argp_parse],
-                 [argp],
-                 [test "$ac_cv_search_argp_parse" = "none required" || ARGP_LIBS=$ac_cv_search_argp_parse],
-                 [AC_MSG_ERROR([unable to find the argp_parse() function])])
-  AC_SUBST([ARGP_LIBS])
+AS_IF([test "x$with_argp" != xno],
+      [
+          AC_CHECK_HEADER([argp.h],,AC_MSG_ERROR(Cannot continue: argp.h not found))
+          AC_SEARCH_LIBS([argp_parse],
+                         [argp],
+                         [test "$ac_cv_search_argp_parse" = "none required" || ARGP_LIBS=$ac_cv_search_argp_parse],
+                         [AC_MSG_ERROR([unable to find the argp_parse() function])])
+          AC_SUBST([ARGP_LIBS])
+      ])
 LIBS=$argp_saved_libs
+AM_CONDITIONAL([HAVE_ARGP], [test "x$with_argp" != xno])
 
 AC_CHECK_FUNCS([fork], AC_DEFINE([HAVE_LIBV4LCONVERT_HELPERS],[1],[whether to use libv4lconvert helpers]))
 AM_CONDITIONAL([HAVE_LIBV4LCONVERT_HELPERS], [test x$ac_cv_func_fork = xyes])

@@ -14,7 +14,9 @@ if WITH_GCONV
 SUBDIRS += gconv
 endif
 
+if HAVE_ARGP
 SUBDIRS += decode_tm6000
+endif
 
 
 EXTRA_DIST = \
