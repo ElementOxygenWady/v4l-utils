@@ -155,6 +155,9 @@ if(ENABLE_CONFIGURE)
     list(APPEND CONFIGURE_COMMAND "--enable-qv4l2=no")
     list(APPEND CONFIGURE_COMMAND "--enable-qvidcap=no")
     list(APPEND CONFIGURE_COMMAND "--enable-bpf=no")
+    if("${PLATFORM}" STREQUAL "SSC37X")
+        list(APPEND CONFIGURE_COMMAND "--without-argp")
+    endif()
 
     string(REPLACE ";" " " CONFIGURE_COMMAND "${CONFIGURE_COMMAND}")
 

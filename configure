@@ -740,6 +740,8 @@ HAVE_LINUX_I2C_DEV_FALSE
 HAVE_LINUX_I2C_DEV_TRUE
 HAVE_LIBV4LCONVERT_HELPERS_FALSE
 HAVE_LIBV4LCONVERT_HELPERS_TRUE
+HAVE_ARGP_FALSE
+HAVE_ARGP_TRUE
 ARGP_LIBS
 DLOPEN_LIBS
 PTHREAD_CFLAGS
@@ -1018,6 +1020,7 @@ with_libintl_prefix
 with_localedir
 with_jpeg
 with_libudev
+with_argp
 with_libv4l1subdir
 with_libv4l2subdir
 with_libv4lconvertsubdir
@@ -1771,6 +1774,7 @@ Optional Packages:
   --with-localedir=PATH      Where the locale files are installed
   --without-jpeg          Do not use jpeg library
   --without-libudev       Do not use udev library
+  --without-argp          Do not use argp.h
   --with-libv4l1subdir=DIR
                           set libv4l1 library subdir (default=libv4l)
   --with-libv4l2subdir=DIR
@@ -5750,11 +5754,11 @@ if test x$ac_prog_cxx_stdcxx = xno
 then :
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $CXX option to enable C++11 features" >&5
 printf %s "checking for $CXX option to enable C++11 features... " >&6; }
-if test ${ac_cv_prog_cxx_cxx11+y}
+if test ${ac_cv_prog_cxx_11+y}
 then :
   printf %s "(cached) " >&6
 else $as_nop
-  ac_cv_prog_cxx_cxx11=no
+  ac_cv_prog_cxx_11=no
 ac_save_CXX=$CXX
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
@@ -5796,11 +5800,11 @@ if test x$ac_prog_cxx_stdcxx = xno
 then :
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $CXX option to enable C++98 features" >&5
 printf %s "checking for $CXX option to enable C++98 features... " >&6; }
-if test ${ac_cv_prog_cxx_cxx98+y}
+if test ${ac_cv_prog_cxx_98+y}
 then :
   printf %s "(cached) " >&6
 else $as_nop
-  ac_cv_prog_cxx_cxx98=no
+  ac_cv_prog_cxx_98=no
 ac_save_CXX=$CXX
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
@@ -24687,7 +24691,20 @@ fi
 
 LIBS=$dl_saved_libs
 
-ac_fn_c_check_header_compile "$LINENO" "argp.h" "ac_cv_header_argp_h" "$ac_includes_default"
+
+# Check whether --with-argp was given.
+if test ${with_argp+y}
+then :
+  withval=$with_argp;
+else $as_nop
+  with_argp=yes
+fi
+
+argp_saved_libs=$LIBS
+if test "x$with_argp" != xno
+then :
+
+          ac_fn_c_check_header_compile "$LINENO" "argp.h" "ac_cv_header_argp_h" "$ac_includes_default"
 if test "x$ac_cv_header_argp_h" = xyes
 then :
 
@@ -24695,8 +24712,7 @@ else $as_nop
   as_fn_error $? "Cannot continue: argp.h not found" "$LINENO" 5
 fi
 
-argp_saved_libs=$LIBS
-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing argp_parse" >&5
+          { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for library containing argp_parse" >&5
 printf %s "checking for library containing argp_parse... " >&6; }
 if test ${ac_cv_search_argp_parse+y}
 then :
@@ -24758,7 +24774,17 @@ else $as_nop
 fi
 
 
+
+fi
 LIBS=$argp_saved_libs
+ if test "x$with_argp" != xno; then
+  HAVE_ARGP_TRUE=
+  HAVE_ARGP_FALSE='#'
+else
+  HAVE_ARGP_TRUE='#'
+  HAVE_ARGP_FALSE=
+fi
+
 
 
   for ac_func in fork
@@ -26256,6 +26282,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${HAVE_JSONC_TRUE}" && test -z "${HAVE_JSONC_FALSE}"; then
   as_fn_error $? "conditional \"HAVE_JSONC\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${HAVE_ARGP_TRUE}" && test -z "${HAVE_ARGP_FALSE}"; then
+  as_fn_error $? "conditional \"HAVE_ARGP\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${HAVE_LIBV4LCONVERT_HELPERS_TRUE}" && test -z "${HAVE_LIBV4LCONVERT_HELPERS_FALSE}"; then
