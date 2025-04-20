@@ -92,9 +92,9 @@ if(CMAKE_CROSSCOMPILING)
     string(REGEX REPLACE "^.+/(.+)-gcc$" "\\1" COMPILER_HOST ${CMAKE_C_COMPILER})
     utils_write_script("export COMPILER_HOST=\"${COMPILER_HOST}\"" WRITE_ALL)
 
-    utils_write_script("export CFLAGS=" WRITE_ALL)
+    utils_write_script("export CFLAGS=\"${CMAKE_C_FLAGS} --sysroot=${CMAKE_SYSROOT}\"" WRITE_ALL)
     utils_write_script("export CPPFLAGS=" WRITE_ALL)
-    utils_write_script("export CXXFLAGS=" WRITE_ALL)
+    utils_write_script("export CXXFLAGS=\"${CMAKE_CXX_FLAGS} --sysroot=${CMAKE_SYSROOT}\"" WRITE_ALL)
     utils_write_script("export LDFLAGS=" WRITE_ALL)
 endif()
 
